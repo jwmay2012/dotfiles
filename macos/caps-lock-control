@@ -1,0 +1,35 @@
+#!/bin/zsh
+
+emulate -L zsh
+setopt err_exit nounset pipe_fail
+
+typeset -r hidutil=/usr/bin/hidutil
+typeset -r mapping='{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0}]}'
+
+(( $# <= 1 )) || {
+    print -u2 'usage: caps-lock-control [--check|--apply|--mapping]'
+    exit 2
+}
+
+case ${1:---check} in
+(--check)
+    exec $hidutil property --get UserKeyMapping
+    ;;
+(--mapping)
+    print -r -- $mapping
+    ;;
+(--apply)
+    typeset current
+    current=$($hidutil property --get UserKeyMapping)
+    if [[ $current != '(null)' ]]; then
+        print -u2 'refusing to replace an existing UserKeyMapping:'
+        print -u2 -r -- $current
+        exit 1
+    fi
+    $hidutil property --set $mapping
+    ;;
+(*)
+    print -u2 'usage: caps-lock-control [--check|--apply|--mapping]'
+    exit 2
+    ;;
+esac

@@ -1,0 +1,9 @@
+# Merge this table into the existing Codex configuration only after Easement
+# and Shotgun have been started and tested. One stable slug intentionally gives
+# sessions launched anywhere under ~/code a shared browser tab group.
+
+[mcp_servers.easement]
+url = "http://127.0.0.1:6502/mcp/code"
+default_tools_approval_mode = "prompt"
+tools.tools.approval_mode = "approve"
+tools.approve.approval_mode = "approve"

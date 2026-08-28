@@ -44,9 +44,9 @@ refuses to replace any existing key map. It is not run automatically.
 ```
 
 The `hidutil` mapping is useful for testing but macOS can lose it after a
-restart or when the keyboard service is removed. System Settings remains the
-simplest persistent configuration. We can add a LaunchAgent later if the
-command-line mapping proves preferable.
+restart or when the keyboard service is removed. The checked-in user
+LaunchAgent reapplies it at login without embedding a home path. A keyboard
+disconnected after login can be restored with the explicit `--apply` command.
 
 ## Easement and Shotgun
 

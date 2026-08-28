@@ -1,0 +1,17 @@
+#!/bin/zsh
+
+emulate -L zsh
+setopt err_exit nounset
+
+(( $# == 0 )) || {
+    print -u2 'usage: t'
+    exit 2
+}
+
+typeset code_root=$HOME/code
+[[ -d $code_root ]] || {
+    print -u2 -- "t: missing working directory: $code_root"
+    exit 1
+}
+
+exec tmux new-session -As main -c "$code_root"

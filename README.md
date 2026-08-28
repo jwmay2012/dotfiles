@@ -23,8 +23,11 @@ The configuration does not require per-project directories. A single session
 started from `~/code` is a valid default:
 
 ```zsh
-tmux new-session -As work -c "$HOME/code"
+t
 ```
+
+The linked `bin/t` wrapper attaches to the tmux session `main` or creates it at
+`~/code` when absent.
 
 Activation will be a separate, reviewed step. The intended link is:
 

@@ -65,10 +65,11 @@ local agents as hostile tenants.
 
 ## Muster
 
-The tmux `prefix`, then `C`, binding opens the persistent Codex popup supplied
-by the `jwmay2012/muster` fork. A first invocation creates an unnamed Codex
-thread at `~/code`; closing the popup does not stop it. Inside Codex, use a
-unique lowercase kebab-case name whenever the work becomes clear:
+The tmux `prefix`, then `C`, binding creates a visible outer tmux window running
+Codex through the `jwmay2012/muster` fork. Each invocation creates another
+unnamed thread at `~/code`; all of the windows remain simultaneously visible in
+the normal tmux status bar. Inside Codex, use a unique lowercase kebab-case name
+whenever the work becomes clear:
 
 ```text
 /rename browser-work
@@ -77,16 +78,16 @@ unique lowercase kebab-case name whenever the work becomes clear:
 That exact name is then the Muster slug:
 
 ```zsh
-muster codex popup --slug browser-work
+muster codex window --slug browser-work
 muster codex tui --slug browser-work
 print 'Review the queued message.' | muster codex nudge --slug browser-work
 ```
 
-The popup's stable thread UUID remains associated with its outer tmux window,
-so the no-argument binding continues to work before and after a rename. Codex
-owns the name registry; changing `/rename` automatically retires the old Muster
-address. All sessions work at `~/code` and share the Shotgun browser context
-`code`.
+The stable thread UUID is stored on its tmux window. Codex owns the name
+registry; changing `/rename` renames that outer tmux tab automatically and
+retires the old Muster address. Selecting an already-open slug focuses its
+existing window instead of launching a duplicate TUI. All sessions work at
+`~/code` and share the Shotgun browser context `code`.
 
 The activation sequence will be:
 
